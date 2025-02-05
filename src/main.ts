@@ -1,22 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerApiDocumentation } from './common/swagger/swagger-api-documentation';
 import { ConfigService } from '@nestjs/config';
 import { ConfigurationType } from './common/configuration/configuration.interface';
 import { Logger } from '@nestjs/common';
+import { setupPipes, setupSwagger } from './app-setup';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService: ConfigService<ConfigurationType> =
-    app.get(ConfigService);
 
   app.enableCors();
   app.setGlobalPrefix('api/v1');
-  SwaggerApiDocumentation.setup(app);
 
+  setupPipes(app);
+  setupSwagger(app);
+
+  const configService: ConfigService<ConfigurationType> =
+    app.get(ConfigService);
   const port = configService.getOrThrow<number>('PORT');
-  await app.listen(port);
 
+  await app.listen(port);
   Logger.log(`${configService.getOrThrow<string>('APP_NAME')} is running!`);
 }
 bootstrap();

@@ -6,6 +6,7 @@ import configuration from './common/configuration/configuration';
 import { ConfigurationType } from './common/configuration/configuration.interface';
 import { UsersModule } from './users/users.module';
 import { UserAccountsModule } from './user-accounts/user-account.module';
+import { AccountTransactionsModule } from './account-transactions/account-transactions.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UserAccountsModule } from './user-accounts/user-account.module';
 
     UsersModule,
     UserAccountsModule,
+    AccountTransactionsModule,
   ],
 })
 export class AppModule {}
