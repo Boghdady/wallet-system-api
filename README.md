@@ -68,21 +68,7 @@ The application follows a modular architecture with the following main component
    cd wallet-system-api
    ```
 
-2. **Set up environment variables**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Configure the following variables in `.env`:
-
-   ```
-   DB_URI=mongodb://localhost:27017/wallet-db?replicaSet=rs0
-   PORT=3000
-   APP_NAME=Wallet System API
-   ```
-
-3. **Start the application**
+2. **Start the application using docker compose**
 
    ```bash
    docker-compose up -d
@@ -93,7 +79,7 @@ The application follows a modular architecture with the following main component
    - MongoDB with replica set configuration
    - API application
 
-4. **Access the API**
+3. **Access the API**
    - API: http://localhost:3000/api/v1
    - Swagger Documentation: http://localhost:3000/api
 
