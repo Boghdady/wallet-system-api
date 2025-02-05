@@ -81,7 +81,7 @@ The application follows a modular architecture with the following main component
 
 3. **Access the API**
    - API: http://localhost:3000/api/v1
-   - Swagger Documentation: http://localhost:3000/api
+   - Swagger Documentation: http://localhost:3000/docs
 
 ## API Documentation
 
