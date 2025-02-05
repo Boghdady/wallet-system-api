@@ -5,6 +5,7 @@ import { ENV_VALIDATION_SCHEMA } from './common/configuration/env-validation-sch
 import configuration from './common/configuration/configuration';
 import { ConfigurationType } from './common/configuration/configuration.interface';
 import { UsersModule } from './users/users.module';
+import { UserAccountsModule } from './user-accounts/user-account.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module';
     }),
 
     UsersModule,
+    UserAccountsModule,
   ],
 })
 export class AppModule {}
