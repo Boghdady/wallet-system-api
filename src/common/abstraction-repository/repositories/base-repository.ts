@@ -1,4 +1,10 @@
-import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import {
+  ClientSession,
+  Document,
+  FilterQuery,
+  Model,
+  UpdateQuery,
+} from 'mongoose';
 import { PaginatedResult } from '../models/paginated-result.model';
 
 export interface FindPaginatedOptions {
@@ -11,9 +17,9 @@ export interface FindPaginatedOptions {
 export class BaseRepository<T extends Document> {
   constructor(protected readonly model: Model<T>) {}
 
-  async create(data: Partial<T>): Promise<T> {
+  async create(data: Partial<T>, session?: ClientSession): Promise<T> {
     const entity = new this.model(data);
-    return entity.save();
+    return entity.save({ session });
   }
 
   async findOne(filter: FilterQuery<T>): Promise<T | null> {
@@ -28,8 +34,14 @@ export class BaseRepository<T extends Document> {
     return this.model.find(filter).exec();
   }
 
-  async update(id: string, data: UpdateQuery<T>): Promise<T | null> {
-    return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+  async update(
+    id: string,
+    data: UpdateQuery<T>,
+    session?: ClientSession,
+  ): Promise<T | null> {
+    return this.model
+      .findByIdAndUpdate(id, data, { new: true, session })
+      .exec();
   }
 
   async delete(id: string): Promise<T | null> {

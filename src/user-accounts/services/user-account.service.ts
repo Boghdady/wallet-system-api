@@ -11,6 +11,7 @@ import {
   UserAccountDocument,
 } from '../schemas/user-account.schema';
 import { UsersService } from 'src/users/users.service';
+import { ClientSession } from 'mongoose';
 
 @Injectable()
 export class UserAccountService {
@@ -52,7 +53,8 @@ export class UserAccountService {
 
   async updateBalance(
     userId: string,
-    updateBalanceDto: UpdateBalanceDto,
+    amount: number,
+    session?: ClientSession,
   ): Promise<UserAccountDocument | null> {
     const account =
       await this.userAccountRepository.findByUserAccountByUserId(userId);
@@ -61,16 +63,18 @@ export class UserAccountService {
       throw new NotFoundException('Account not found');
     }
 
-    account.balance = parseFloat(
-      (account.balance + updateBalanceDto.amount).toFixed(2),
-    );
+    account.balance = parseFloat((account.balance + amount).toFixed(2));
 
     if (account.balance < 0) {
       throw new BadRequestException('Insufficient balance');
     }
 
-    return this.userAccountRepository.update(account._id, {
-      balance: account.balance,
-    });
+    return this.userAccountRepository.update(
+      account._id,
+      {
+        balance: account.balance,
+      },
+      session,
+    );
   }
 }

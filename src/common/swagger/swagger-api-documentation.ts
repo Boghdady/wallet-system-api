@@ -5,18 +5,9 @@ import { SwaggerTags } from './constatnt';
 export class SwaggerApiDocumentation {
   static setup(app: INestApplication): void {
     const options = new DocumentBuilder()
-      .setTitle('Flosy feen api v1')
-      .setDescription('The api structure documentation for flosy feen app')
+      .setTitle('Wallet System API V1')
+      .setDescription('The api structure documentation for wallet system app')
       .setVersion('1.0')
-      .addBearerAuth()
-      .addTag(SwaggerTags.OTP)
-      .addTag(SwaggerTags.AUTH)
-      .addTag(SwaggerTags.USER)
-      .addTag(SwaggerTags.FORGET_PASSWORD)
-      .addTag(SwaggerTags.WALLET)
-      .addTag(SwaggerTags.TRANSACTION_CATEGORY)
-      .addTag(SwaggerTags.WALLET_TRANSACTION)
-      .addTag(SwaggerTags.STATISTICS)
       .build();
 
     const document = SwaggerModule.createDocument(app, options, {
