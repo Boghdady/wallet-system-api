@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: wallet-mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGODB_DATABASE=wallet-db
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wallet-api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    environment:
+      - DB_URI=mongodb://mongodb:27017/wallet-db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  mongodb_data:
